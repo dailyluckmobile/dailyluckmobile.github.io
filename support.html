@@ -28,6 +28,11 @@
         font-family: 'Hind Madurai', sans-serif;
     }
 
+    label {
+        font-family: 'Hind Madurai', sans-serif;
+        color: white;
+    }
+
     button {
         text-align: center;
         border-radius: 2em;
@@ -35,7 +40,7 @@
     }
 
     div {
-        align-content: center;
+        text-align: center;
     }
 
     body {
@@ -51,18 +56,57 @@
     <br />
     <p><img src="./cookie.png" alt="Icon"></p>
     <br />
+
     <br />
-    <p><button type="button" class="btn btn-light">Entre em contato</button></p>
+    <form id="send_email" style="padding: 2em;">
+        <div class="form-group">
+            <label for="subject"><h3>Selecione um assunto:</h3></label>
+            <select class="form-control" id="subject">
+                <option>Sugestão</option>
+                <option>Ajuda</option>
+                <option>Enviar Sorte</option>
+                <option>Problema</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="body"><h3>Digite a mensagem:</h3></label>
+            <textarea class="form-control" id="body" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <input id="form_button" type="button" class="btn btn-light btn-lg" value="Enviar" />
+        </div>
+    </form>
 </body>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
-        $('#bt1').click(function () {
-            $('#fr1').attr('action',
-                'mailto:test@test.com?subject=' +
-                $('#tb1').val() + '&body=' + $('#tb2').val());
-            $('#fr1').submit();
+        $('#form_button').click(function () {
+            var subject = $('#subject').find(":selected").text();
+            var body = $('#body').val();
+            console.log(subject);
+            console.log(body);
+            var action = 'mailto:daily.luck.mobile@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            console.log(action)
+            $('#send_email').attr('action', action);
+            $('#send_email').submit();
         });
     });
 </script>
+<!-- <script type="text/javascript">
+    function loadEvents() {
+        var mailString;
+        function updateMailString() {
+            var subject = $('#subject').find(":selected").text();
+            var body = $('#body').val();
+            console.log(subject);
+            console.log(body);
+            mailString = '?subject=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(body);
+            $('#form_button').attr('href',  'mailto:person@email.com' + mailString);
+        }
+        $( "#subject" ).focusout(function() { updateMailString(); });
+        $( "#body" ).focusout(function() { updateMailString(); });
+        updateMailString();
+    }
+</script> -->
 
 </html>
